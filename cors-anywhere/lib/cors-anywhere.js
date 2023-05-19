@@ -315,7 +315,7 @@ function getHandler(options, proxy) {
       url = url.replace('https:/', 'https://')
     }
 
-    var location = url
+    var location = parseURL(url)
 
     if (corsAnywhere.handleInitialRequest && corsAnywhere.handleInitialRequest(req, res, location)) {
       return;
