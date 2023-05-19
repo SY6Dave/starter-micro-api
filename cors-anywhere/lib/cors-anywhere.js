@@ -309,7 +309,13 @@ function getHandler(options, proxy) {
       return;
     }
 
-    var location = parseURL(req.url.slice(1));
+    let url = req.url.slice(1)
+    // DM: for some reason, a slash is stripped out of the protocol, but only on cyclic and not locally?
+    if (/^https:\//.test(url) && !/^https:\/\//.test(url)) {
+      url = url.replace('https:/', 'https://')
+    }
+
+    var location = url
 
     if (corsAnywhere.handleInitialRequest && corsAnywhere.handleInitialRequest(req, res, location)) {
       return;
